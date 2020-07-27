@@ -1,26 +1,43 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
-function App() {
+import TopMenu from './components/TopMenu';
+
+// pages
+import Books from './pages/books';
+import SignIn from './pages/signIn';
+
+// Context
+import {CartProvider} from './context/cart';
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <CartProvider>
+      <Router>
+        <div>
+          <TopMenu />
+
+          {/* A <Switch> looks through its children <Route>s and
+              renders the first one that matches the current URL. */}
+          <Switch>
+            <Route path="/books" exact>
+              <Books/>
+            </Route>
+            <Route path="/signin">
+              <SignIn/>
+            </Route>
+          </Switch>
+        </div>
+      </Router>
+    </CartProvider>
   );
 }
 
-export default App;
+
